@@ -1,6 +1,7 @@
 import type { TextEditorDecorationType } from 'vscode';
 import {
   HideDecorationType,
+  WikilinkDecorationType,
   TransparentDecorationType,
   GhostFaintDecorationType,
   BoldDecorationType,
@@ -62,6 +63,7 @@ type RegistryOptions = {
 
 export class DecorationTypeRegistry {
   private hideDecorationType!: TextEditorDecorationType;
+  private wikilinkDecorationType!: TextEditorDecorationType;
   private transparentDecorationType!: TextEditorDecorationType;
   private ghostFaintDecorationType!: TextEditorDecorationType;
   private boldDecorationType!: TextEditorDecorationType;
@@ -101,6 +103,7 @@ export class DecorationTypeRegistry {
 
   constructor(private options: RegistryOptions) {
     this.hideDecorationType = HideDecorationType();
+    this.wikilinkDecorationType = WikilinkDecorationType();
     this.transparentDecorationType = TransparentDecorationType();
     this.ghostFaintDecorationType = GhostFaintDecorationType(this.options.getGhostFaintOpacity());
     this.boldDecorationType = BoldDecorationType(this.options.getEmphasisColor?.());
@@ -141,6 +144,7 @@ export class DecorationTypeRegistry {
 
     this.decorationTypeMap = new Map<DecorationType, TextEditorDecorationType>([
       ['hide', this.hideDecorationType],
+      ['wikilink', this.wikilinkDecorationType],
       ['transparent', this.transparentDecorationType],
       ['bold', this.boldDecorationType],
       ['italic', this.italicDecorationType],

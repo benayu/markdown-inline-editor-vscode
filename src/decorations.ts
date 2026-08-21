@@ -39,6 +39,13 @@ export function HideDecorationType() {
   });
 }
 
+export function WikilinkDecorationType() {
+  return window.createTextEditorDecorationType({
+    textDecoration: 'none; display: none;',
+    after: { contentText: '' },
+  });
+}
+
 /**
  * Creates a decoration type for making text transparent.
  *

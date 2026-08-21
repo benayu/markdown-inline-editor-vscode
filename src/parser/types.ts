@@ -66,6 +66,7 @@ export type DecorationType =
   | "heading5"
   | "heading6"
   | "link"
+  | "wikilink"
   | "image"
   | "blockquote"
   | "listItem"

@@ -59,6 +59,7 @@ import {
 import {
   handleEmptyImageAlt as handleEmptyImageAltHelper,
   processEmojiShortcodesInSlice as processEmojiShortcodesInSliceHelper,
+  processWikilinksInSlice as processWikilinksInSliceHelper,
   processTextNode as processTextNodeHelper,
 } from "./text-processing";
 import { getRemarkProcessorSync, getRemarkProcessor } from "../parser-remark";
@@ -181,6 +182,7 @@ export class MarkdownParser {
 
       // Process AST nodes and extract decorations + scopes
       this.processAST(ast, normalizedText, decorations, scopes, mermaidBlocks);
+      processWikilinksInSliceHelper(normalizedText, 0, decorations, scopes);
 
       // Handle edge cases: empty image alt text that remark doesn't parse as Image node
       this.handleEmptyImageAlt(normalizedText, decorations);

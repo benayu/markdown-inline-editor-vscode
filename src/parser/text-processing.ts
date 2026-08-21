@@ -22,6 +22,29 @@ export function processTextNode(
   processEmojiShortcodesInSlice(node.value, start, decorations, scopes);
 }
 
+export function processWikilinksInSlice(
+  slice: string,
+  offset: number,
+  decorations: DecorationRange[],
+  scopes: ScopeRange[],
+): void {
+  const regex = /\[\[[^\]\r\n]+?\]\]/g;
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(slice)) !== null) {
+    const start = offset + match.index;
+    const end = start + match[0].length;
+    if (scopes.some((scope) =>
+      (scope.kind === 'code' || scope.kind === 'codeBlock') &&
+      start < scope.endPos && end > scope.startPos
+    )) {
+      continue;
+    }
+    decorations.push({ startPos: start, endPos: start + 2, type: 'wikilink' });
+    decorations.push({ startPos: end - 2, endPos: end, type: 'wikilink' });
+    addScope(scopes, start, end, 'wikilink');
+  }
+}
+
 export function processEmojiShortcodesInSlice(
   slice: string,
   offset: number,
