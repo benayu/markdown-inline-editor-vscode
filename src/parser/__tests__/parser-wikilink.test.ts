@@ -7,12 +7,15 @@ describe('MarkdownParser - Wikilinks', () => {
     parser = await MarkdownParser.create();
   });
 
-  it('hides the opening and closing double brackets', () => {
+  it('hides the brackets and underlines the wikilink text', () => {
     const result = parser.extractDecorations('See [[Target Page]] for details.');
 
+    expect(result.filter((decoration) => decoration.type === 'hide')).toEqual([
+      { startPos: 4, endPos: 6, type: 'hide' },
+      { startPos: 17, endPos: 19, type: 'hide' },
+    ]);
     expect(result.filter((decoration) => decoration.type === 'wikilink')).toEqual([
-      { startPos: 4, endPos: 6, type: 'wikilink' },
-      { startPos: 17, endPos: 19, type: 'wikilink' },
+      { startPos: 6, endPos: 17, type: 'wikilink' },
     ]);
   });
 
@@ -20,8 +23,7 @@ describe('MarkdownParser - Wikilinks', () => {
     const result = parser.extractDecorations('`[[Target]]` and [[Visible]]');
 
     expect(result.filter((decoration) => decoration.type === 'wikilink')).toEqual([
-      { startPos: 17, endPos: 19, type: 'wikilink' },
-      { startPos: 26, endPos: 28, type: 'wikilink' },
+      { startPos: 19, endPos: 26, type: 'wikilink' },
     ]);
   });
 });

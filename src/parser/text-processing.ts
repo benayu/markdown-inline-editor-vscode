@@ -39,8 +39,9 @@ export function processWikilinksInSlice(
     )) {
       continue;
     }
-    decorations.push({ startPos: start, endPos: start + 2, type: 'wikilink' });
-    decorations.push({ startPos: end - 2, endPos: end, type: 'wikilink' });
+    decorations.push({ startPos: start, endPos: start + 2, type: 'hide' });
+    decorations.push({ startPos: start + 2, endPos: end - 2, type: 'wikilink' });
+    decorations.push({ startPos: end - 2, endPos: end, type: 'hide' });
     addScope(scopes, start, end, 'wikilink');
   }
 }

@@ -41,8 +41,7 @@ export function HideDecorationType() {
 
 export function WikilinkDecorationType() {
   return window.createTextEditorDecorationType({
-    textDecoration: 'none; display: none;',
-    after: { contentText: '' },
+    textDecoration: 'underline',
   });
 }
 
